@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet App</title>
+    <style>
+        body{
+            background-image: url('https://pixabay.com/images/download/x-1854245_1920.jpg');
+        }
+    </style>
+</head>
+<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+
+    <div class="container">
+        <div class="form-field" style="height: 40px; width: 300px; background-color: grey; border-radius: 30%; border: 3px solid blue;margin-top: 20%; margin-left: 30%;">
+            <input type="text" id="input-search" class="form-control" placeholder="Enter dish name...">
+        
+        </div>
+        <button class="btn btn-blue" id="submit-button">Submit</button>
+        <div class="d-flex flex-column">
+            <!--  id="card-template" -->
+            <!-- <div class="card">
+                <img src="" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                  <a href="#" class="btn-solid theme-primary">Go somewhere</a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
+
+    <script>
+        function filter(json, searchTerm) {
+            var jsonNew = {"data" : []};
+            $(json.data).each((i,d) => {
+                if (d.name.includes(searchTerm)) {
+                    jsonNew.data.push(d);
+                } else {
+                }
+            });
+            return jsonNew;
+        }
+
+        let json = {
+	"data" : 
+	[
+  {
+    "name": "Pizza Napoletana",
+    "alt": "Pita Napoletana",
+    "recipe": "A whole-wheat pita bread topped with fresh homemade tomato sauce, basil, and a light sprinkle of mozzarella, baked crisp"
+  },
+  {
+    "name": "Spaghetti Carbonara",
+    "alt": "Spaghetti Carbo-nada",
+    "recipe": "Zucchini noodles tossed with a creamy, low-fat Greek yogurt and nutritional yeast sauce with smoked turkey bits"
+  },
+  {
+    "name": "Lasagna",
+    "alt": "Squash-agna",
+    "recipe": "Layers of roasted butternut squash and zucchini slices replacing pasta, baked with low-fat cottage cheese and homemade marinara"
+  },
+  {
+    "name": "Fettuccine Alfredo",
+    "alt": "Feto-ccine Alfredo",
+    "recipe": "Whole-wheat ribbons tossed in a rich-tasting but healthy sauce made from blended silken tofu and garlic"
+  },
+  {
+    "name": "Gnocchi",
+    "alt": "Oat-chi",
+    "recipe": "Soft, fiber-rich dumplings made from oat flour and sweet potato mash, boiled and tossed in a dab of olive oil"
+  },
+  {
+    "name": "Ravioli",
+    "alt": "Radish-ioli",
+    "recipe": "Thinly sliced daikon radish folded over a spinach and ricotta filling, lightly steamed"
+  },
+  {
+    "name": "Risotto alla Milanese",
+    "alt": "Riced-cauli Milanese",
+    "recipe": "Finely grated cauliflower cooked slowly in vegetable broth with a pinch of real saffron for that golden color without the heavy carbs"
+  },
+  {
+    "name": "Tiramisu",
+    "alt": "Chia-misu",
+    "recipe": "A protein-packed layered dessert of coffee-soaked oats and chia seeds topped with whipped Greek yogurt and cocoa powder"
+  },
+  {
+    "name": "Bruschetta",
+    "alt": "Bran-schetta",
+    "recipe": "Toasted high-fiber oat bran bread topped with fresh, antioxidant-rich diced tomatoes, garlic, and basil"
+  },
+  {
+    "name": "Cacio e Pepe",
+    "alt": "Cashew e Pepe",
+    "recipe": "Whole-wheat spaghetti tossed in a creamy, dairy-free sauce made of blended soaked cashews and generous cracked black pepper"
+  },
+  {
+    "name": "Cheeseburgers",
+    "alt": "Peas-burgers",
+    "recipe": "A homemade, protein-packed patty made of mashed green peas and lentils, served on a crisp lettuce wrap"
+  },
+  {
+    "name": "Ribeye Steak",
+    "alt": "Rib-high Bake",
+    "recipe": "A thick, high-protein cut of tempeh or lean chicken breast baked with smoky paprika and a dry rub"
+  },
+  {
+    "name": "Macaroni and Cheese",
+    "alt": "Maca-roni and Peas",
+    "recipe": "Whole-grain macaroni tossed in a creamy nutritional yeast and butternut squash sauce, packed with green peas"
+  },
+  {
+    "name": "Buffalo Wings",
+    "alt": "Cauliflower Flings",
+    "recipe": "Fresh cauliflower florets tossed in homemade hot sauce and baked until crispy, served with a yogurt dip"
+  },
+  {
+    "name": "Barbecue Ribs",
+    "alt": "Barbecue Nibs",
+    "recipe": "Chunks of heart-healthy tofu or lean chicken skewers glazed in a homemade, sugar-free tomato and mustard BBQ sauce"
+  },
+  {
+    "name": "Club Sandwich",
+    "alt": "Shrub Sandwich",
+    "recipe": "A towering double-decker sandwich loaded with crisp cucumbers, spinach, sprouts, and grilled paneer on multigrain bread"
+  },
+  {
+    "name": "Caesar Salad",
+    "alt": "Seed-sar Salad",
+    "recipe": "A nutrient-dense kale salad tossed with pumpkin and sunflower seeds, dressed in a tahini-lemon vinaigrette"
+  },
+  {
+    "name": "French Fries",
+    "alt": "Trench Fries",
+    "recipe": "Thick-cut sweet potato wedges baked in the oven with a tiny drizzle of olive oil and rosemary"
+  },
+  {
+    "name": "Hot Dogs",
+    "alt": "Hot Logs",
+    "recipe": "Steamed, fiber-rich carrot sticks marinated in smoky spices, served in a whole-wheat bun with homemade mustard"
+  },
+  {
+    "name": "Pancakes",
+    "alt": "Bran-cakes",
+    "recipe": "Fluffy breakfast cakes made from oat bran and mashed bananas, cooked on a non-stick pan without butter"
+  },
+  {
+    "name": "Tacos",
+    "alt": "Lettuce-tack-os",
+    "recipe": "Crisp romaine lettuce boats filled with spiced black beans, roasted corn, and fresh pico de gallo"
+  },
+  {
+    "name": "Burritos",
+    "alt": "Bean-ritos",
+    "recipe": "A whole-wheat wrap heavily stuffed with high-fiber pinto beans, brown rice, and fresh fajita veggies"
+  },
+  {
+    "name": "Enchiladas",
+    "alt": "Quinoa-ladas",
+    "recipe": "Cabbage leaves stuffed with a protein-rich quinoa and black bean mix, baked in a homemade, low-sodium red chili sauce"
+  },
+  {
+    "name": "Quesadillas",
+    "alt": "Squash-adillas",
+    "recipe": "A folded whole-grain tortilla filled with mashed butternut squash and a light sprinkle of feta, toasted dry"
+  },
+  {
+    "name": "Fajitas",
+    "alt": "Veg-itas",
+    "recipe": "A colorful array of bell peppers and onions stir-fried in a splash of water and fajita spices, served with corn tortillas"
+  },
+  {
+    "name": "Guacamole",
+    "alt": "Brocc-a-mole",
+    "recipe": "A lower-calorie dip blending a little avocado with steamed broccoli and lime juice to maximize volume and nutrients"
+  },
+  {
+    "name": "Asado",
+    "alt": "A-salad-o",
+    "recipe": "A massive, hearty bowl of grilled lean chicken or paneer strips over a bed of mixed greens with a homemade chimichurri"
+  },
+  {
+    "name": "Ceviche",
+    "alt": "Seed-viche",
+    "recipe": "A refreshing salad of soaked chia seeds, diced tomatoes, cucumber, jalapeño, and lime juice for healthy omega-3s"
+  },
+  {
+    "name": "Arepas",
+    "alt": "Oat-repas",
+    "recipe": "Thick, satisfying grilled patties made from ground oats and water, stuffed with mashed black beans"
+  },
+  {
+    "name": "Pupusas",
+    "alt": "Pup-squashes",
+    "recipe": "Handmade corn masa patties stuffed with grated, moisture-squeezed zucchini and a tiny bit of skim mozzarella"
+  },
+  {
+    "name": "Peking Duck",
+    "alt": "Peeking Buck(wheat)",
+    "recipe": "A warm bowl of nutrient-dense buckwheat groats topped with thinly sliced, oven-roasted lean chicken and cucumber scallion slaw"
+  },
+  {
+    "name": "Kung Pao Chicken",
+    "alt": "Kung Pao Chickpeas",
+    "recipe": "A plant-based stir-fry using roasted chickpeas instead of chicken, tossed with celery, dry chilies, and low-sodium soy sauce"
+  },
+  {
+    "name": "Sweet and Sour Pork",
+    "alt": "Sweet and Sour Stalk",
+    "recipe": "Crisp celery and broccoli stalks stir-fried in a tangy sauce made from fresh orange juice and rice vinegar, with zero deep-frying"
+  },
+  {
+    "name": "Dim Sum",
+    "alt": "Slim Sum",
+    "recipe": "Delicate, translucent rice paper rolls steamed with a filling of finely shredded cabbage, carrots, and mushrooms"
+  },
+  {
+    "name": "Chow Mein",
+    "alt": "Chow Lean",
+    "recipe": "Zucchini and carrot spirals lightly wok-tossed with bean sprouts and a dash of low-sodium tamari"
+  },
+  {
+    "name": "Fried Rice",
+    "alt": "Dried Rice",
+    "recipe": "Cauliflower rice pan-roasted dry with garlic, peas, carrots, and a scrambled egg white for a low-carb, high-volume meal"
+  },
+  {
+    "name": "Mapo Tofu",
+    "alt": "Macro Tofu",
+    "recipe": "Silken tofu gently simmered in a homemade chili-garlic broth loaded with chopped spinach to boost the macronutrient profile"
+  },
+  {
+    "name": "Spring Rolls",
+    "alt": "String Rolls",
+    "recipe": "Fresh, un-fried rice paper rolls packed tightly with string beans, cucumber, and tofu, dipped in peanut butter powder sauce"
+  },
+  {
+    "name": "Guotie",
+    "alt": "Oat-tie",
+    "recipe": "Pan-steamed dumplings with a wrapper made from oat flour, filled with ginger-spiced minced chicken breast or lentils"
+  },
+  {
+    "name": "Wonton Soup",
+    "alt": "Warm-ton Soup",
+    "recipe": "A comforting, low-sodium vegetable broth loaded with bok choy and tiny homemade lean-chicken meatballs instead of doughy wrappers"
+  },
+  {
+    "name": "Sushi",
+    "alt": "Cuke-shi",
+    "recipe": "Hollowed-out cucumber rolls stuffed with brown rice, raw tuna or tofu, and avocado, eliminating the refined white sugar-vinegar rice"
+  },
+  {
+    "name": "Ramen",
+    "alt": "Raw-men",
+    "recipe": "A vibrant bowl of raw spiralized daikon and carrots in a piping hot, homemade miso broth to retain crunch and vitamins"
+  },
+  {
+    "name": "Tempura",
+    "alt": "Tempeh-ra",
+    "recipe": "Un-fried, oven-baked strips of fermented tempeh marinated in soy and ginger, offering gut-healthy probiotics"
+  },
+  {
+    "name": "Udon Noodles",
+    "alt": "Z-udon Noodles",
+    "recipe": "Thick-cut zucchini strips blanched quickly in a light, homemade dashi broth with scallions and mushrooms"
+  },
+  {
+    "name": "Yakitori",
+    "alt": "Yaki-tofu",
+    "recipe": "Cubes of firm tofu and leeks skewered and grilled on a home pan with a light, sugar-free soy glaze"
+  },
+  {
+    "name": "Wagyu Beef",
+    "alt": "Veg-you Beef",
+    "recipe": "Thick, meaty portobello mushrooms marinated and grilled to mimic a rich steak, served with steamed asparagus"
+  },
+  {
+    "name": "Sashimi",
+    "alt": "Squash-imi",
+    "recipe": "Thinly sliced, lightly pickled yellow squash and zucchini served beautifully arranged with a side of fresh ginger"
+  },
+  {
+    "name": "Tonkatsu",
+    "alt": "Oat-katsu",
+    "recipe": "A lean chicken breast or tofu slab coated in crushed oats and baked until crispy, completely avoiding the deep fryer"
+  },
+  {
+    "name": "Chicken Teriyaki",
+    "alt": "Chicken Cherry-yaki",
+    "recipe": "Grilled lean chicken glazed with a homemade sauce naturally sweetened with pureed cherries and ginger"
+  },
+  {
+    "name": "Miso Soup",
+    "alt": "Pea-so Soup",
+    "recipe": "A traditional light miso broth blended with pureed sweet green peas for added protein and fiber"
+  },
+  {
+    "name": "Butter Chicken",
+    "alt": "Better Chicken",
+    "recipe": "Lean chicken pieces simmered in a creamy, dairy-free sauce made of pureed tomatoes, cashews, and almond milk instead of butter"
+  },
+  {
+    "name": "Chicken Tikka Masala",
+    "alt": "Chickpea Tikka Masala",
+    "recipe": "High-fiber chickpeas roasted in spices and simmered in a homemade, low-oil tomato and onion gravy"
+  },
+  {
+    "name": "Biryani",
+    "alt": "Bran-yani",
+    "recipe": "A fragrant, spiced dish made with high-fiber oat bran or quinoa instead of white rice, loaded with steamed mixed vegetables"
+  },
+  {
+    "name": "Palak Paneer",
+    "alt": "Palak Tofu-neer",
+    "recipe": "Fresh spinach puree cooked with minimal oil, using firm tofu cubes instead of fried cheese for a lean protein boost"
+  },
+  {
+    "name": "Chana Masala",
+    "alt": "Chana M-Salad",
+    "recipe": "A fresh, cold salad of boiled chickpeas, diced red onions, tomatoes, and cucumber tossed in lemon juice and chaat masala"
+  },
+  {
+    "name": "Samosas",
+    "alt": "Sam-oats-as",
+    "recipe": "Baked, not fried, triangular pastries with a crust made of oat flour, filled with spiced green peas and mashed cauliflower"
+  },
+  {
+    "name": "Naan",
+    "alt": "Bran",
+    "recipe": "A soft, homemade flatbread made entirely of wheat bran and yogurt, cooked on a dry tawa without butter"
+  },
+  {
+    "name": "Dosa",
+    "alt": "Oat-sa",
+    "recipe": "A quick, fermentation-free crispy crepe made from a batter of ground oats and water, perfect for a light breakfast"
+  },
+  {
+    "name": "Rogan Josh",
+    "alt": "Rogan Squash",
+    "recipe": "A hearty, slow-cooked stew using chunks of bottle gourd and pumpkin in rich Kashmiri spices instead of fatty meat"
+  },
+  {
+    "name": "Dal Makhani",
+    "alt": "Dal Makani",
+    "recipe": "Yellow dal with Makane, a source of protein, made at home"
+  },
+  {
+    "name": "Coq au Vin",
+    "alt": "Stalk au Vin",
+    "recipe": "Hearty broccoli stalks and carrots braised slowly in a rich, homemade vegetable broth and a splash of red wine vinegar"
+  },
+  {
+    "name": "Beef Bourguignon",
+    "alt": "Beet Bourguignon",
+    "recipe": "Earthy, iron-rich beetroot chunks slow-cooked with mushrooms and pearl onions in a savory herb broth"
+  },
+  {
+    "name": "Châteaubriand",
+    "alt": "Château-bran",
+    "recipe": "A thick, savory loaf made of lentils, bran, and herbs, baked and sliced like a premium roast"
+  },
+  {
+    "name": "Pot Au Feu",
+    "alt": "Pot Au Tofu",
+    "recipe": "A rustic, comforting French vegetable soup simmered gently with large, protein-packed blocks of firm tofu"
+  },
+  {
+    "name": "Escargot",
+    "alt": "Yes-cargo",
+    "recipe": "A healthy cargo of button mushrooms stuffed with a light garlic and parsley yogurt mixture, baked until tender"
+  },
+  {
+    "name": "French Onion Soup",
+    "alt": "French Onion Scoop",
+    "recipe": "Caramelized onions simmered in bone broth, served with a scoop of protein-rich cottage cheese instead of a melted cheese crust"
+  },
+  {
+    "name": "Ratatouille",
+    "alt": "Roast-atouille",
+    "recipe": "Eggplant, zucchini, and bell peppers simply roasted on a sheet pan with minimal olive oil and fresh thyme to retain nutrients"
+  },
+  {
+    "name": "Croissants",
+    "alt": "Grow-ssants",
+    "recipe": "Crescent-shaped, whole-wheat bread rolls baked at home, providing complex carbohydrates that help you grow strong"
+  },
+  {
+    "name": "Crème Brûlée",
+    "alt": "Crème Puree",
+    "recipe": "A smooth, naturally sweet puree of baked apples and cinnamon topped with a dollop of Greek yogurt"
+  },
+  {
+    "name": "Duck Confit",
+    "alt": "Duck Can-Fit",
+    "recipe": "A portion-controlled, skinless duck breast or chicken thigh slow-roasted in its own natural juices without added fat, so it fits your macros"
+  },
+  {
+    "name": "Pad Thai",
+    "alt": "Rad Thai",
+    "recipe": "A vibrant, crunchy salad of julienned radishes and carrots tossed in a homemade peanut powder and lime dressing"
+  },
+  {
+    "name": "Tom Yum Goong",
+    "alt": "Tom Plum Goong",
+    "recipe": "A tangy, immune-boosting hot and sour broth naturally sweetened with a hint of plum, loaded with steamed shrimp"
+  },
+  {
+    "name": "Thai Curry",
+    "alt": "Thai Scurry",
+    "recipe": "A quick, 10-minute stir-fry of green beans and bamboo shoots in a light coconut-milk-alternative green curry paste"
+  },
+  {
+    "name": "Som Tum",
+    "alt": "Plum Tum",
+    "recipe": "A shredded green papaya salad mixed with fresh plums and lime juice, skipping the added sugar entirely"
+  },
+  {
+    "name": "Pho",
+    "alt": "Fau-x",
+    "recipe": "A deeply spiced, slow-simmered bone broth poured over shirataki (konjac) noodles for a zero-carb, highly filling soup"
+  },
+  {
+    "name": "Banh Mi",
+    "alt": "Bran Mi",
+    "recipe": "A hollowed-out whole-wheat bran baguette filled with grilled lemongrass tofu and heavily pickled daikon and carrots"
+  },
+  {
+    "name": "Fresh Summer Rolls",
+    "alt": "Fresh Cuke Rolls",
+    "recipe": "Thinly sliced cucumber ribbons wrapped around fresh mint, cilantro, and boiled shrimp"
+  },
+  {
+    "name": "Massaman Curry",
+    "alt": "Massa-bran Curry",
+    "recipe": "A hearty, warm curry thickened with oat bran instead of heavy coconut cream, loaded with sweet potatoes"
+  },
+  {
+    "name": "Pad Kra Pao",
+    "alt": "Pad Kra-Cow",
+    "recipe": "Lean minced beef or turkey stir-fried with massive amounts of fresh holy basil and chilies, served over quinoa"
+  },
+  {
+    "name": "Mango Sticky Rice",
+    "alt": "Mango Tricky Rice",
+    "recipe": "A dessert that tricks you: fresh diced mango served over protein-packed cottage cheese or chia pudding"
+  },
+  {
+    "name": "Moussaka",
+    "alt": "Mousse-aka",
+    "recipe": "A light, savory layered bake of grilled eggplant and tomatoes, topped with a fluffy \"mousse\" of whipped egg whites and Greek yogurt"
+  },
+  {
+    "name": "Shawarma",
+    "alt": "Slaw-arma",
+    "recipe": "A massive bowl of shredded cabbage slaw topped with dry-rubbed, oven-baked chicken breast strips"
+  },
+  {
+    "name": "Falafel",
+    "alt": "Bake-afel",
+    "recipe": "Herb-packed chickpea patties baked on a non-stick tray instead of deep-fried, perfect for a high-fiber lunch"
+  },
+  {
+    "name": "Hummus",
+    "alt": "Plum-mus",
+    "recipe": "A tangy, oil-free dip made by blending chickpeas with roasted eggplant and a squeeze of fresh lemon"
+  },
+  {
+    "name": "Kebabs",
+    "alt": "Ke-bobs",
+    "recipe": "Chunks of lean meat or paneer alternating with thick cuts of bell peppers and onions, grilled over an open flame with zero oil"
+  },
+  {
+    "name": "Gyros",
+    "alt": "Greens-ros",
+    "recipe": "Sliced grilled chicken served in a massive lettuce leaf instead of a pita, loaded with cucumber-heavy homemade tzatziki"
+  },
+  {
+    "name": "Greek Salad",
+    "alt": "Sleek Salad",
+    "recipe": "A minimalist, clean bowl of tomatoes, cucumbers, and Kalamata olives tossed in lemon juice with a tiny crumble of feta"
+  },
+  {
+    "name": "Baklava",
+    "alt": "Bake-lava",
+    "recipe": "Layers of thin phyllo dough baked with crushed walnuts and lightly drizzled with pure, raw honey instead of heavy syrup"
+  },
+  {
+    "name": "Shakshuka",
+    "alt": "Shock-shuka",
+    "recipe": "A surprisingly healthy skillet of eggs poached in a completely oil-free, freshly pureed tomato and spinach sauce"
+  },
+  {
+    "name": "Baba Ganoush",
+    "alt": "Baba-squash",
+    "recipe": "A creamy, smoky dip made from roasted butternut squash and garlic, entirely skipping the tahini and olive oil"
+  },
+  {
+    "name": "Paella",
+    "alt": "Pea-ella",
+    "recipe": "A vibrant pan of quinoa cooked in saffron broth, heavily loaded with green peas, bell peppers, and steamed mussels"
+  },
+  {
+    "name": "Jamón Ibérico",
+    "alt": "Yam-on Ibérico",
+    "recipe": "Thinly sliced, oven-baked sweet potato crisps dusted with smoked paprika to satisfy a savory, salty craving"
+  },
+  {
+    "name": "Gazpacho",
+    "alt": "Glass-pacho",
+    "recipe": "A refreshing, raw vegetable soup of blended tomatoes, cucumbers, and peppers served in a chilled glass for hydration"
+  },
+  {
+    "name": "Patatas Bravas",
+    "alt": "Batatas Bravas",
+    "recipe": "Cubes of roasted sweet potatoes (batatas) tossed in a homemade, sugar-free spicy tomato salsa"
+  },
+  {
+    "name": "Pastéis de Belém",
+    "alt": "Pastéis de Protein",
+    "recipe": "Crustless, baked egg-white and vanilla protein powder custard cups sweetened with a touch of stevia"
+  },
+  {
+    "name": "Fish and Chips",
+    "alt": "Fish and Dips",
+    "recipe": "Almond-flour crusted baked cod served with fresh carrot and celery sticks to dip into homemade Greek yogurt tartar sauce"
+  },
+  {
+    "name": "Hainanese Chicken Rice",
+    "alt": "Hainanese Chicken Slice",
+    "recipe": "Gently poached, skinless chicken breast slices served over steamed cauliflower rice with a ginger-scallion puree"
+  },
+  {
+    "name": "Bibimbap",
+    "alt": "Lettuce-bap",
+    "recipe": "A colorful array of steamed spinach, bean sprouts, and a fried egg arranged beautifully over a bed of shredded lettuce instead of rice"
+  },
+  {
+    "name": "Nasi Padang",
+    "alt": "Nasi-nada Padang",
+    "recipe": "A massive, flavorful platter of various steamed Indonesian vegetables and grilled fish, entirely skipping the heavy coconut rice"
+  },
+  {
+    "name": "Irish Stew",
+    "alt": "Iron Stew",
+    "recipe": "A highly nutritious, iron-rich broth packed with lentils, spinach, and root vegetables, simmering away at home all afternoon"
+  }
+]
+}
+        // $.getJSON('diet-app.json', function(data) {
+
+            $.each(json.data, function(i, f) {
+                renderCards(f);
+               
+            });
+
+        // });
+
+        function renderCards(f) {
+            var card = "<div class=\"card\">\
+                <img src=\"\" class=\"card-img-top\" alt=\""+ f.name + "\">\
+                <div class=\"card-body\">\
+                  <h4 class=\"card-title\">" + f.alt + "</h4>\
+                  <p class=\"card-text\">" + f.recipe +"</p>\
+                </div>\
+                </div>";
+
+                $(card).appendTo(".d-flex");
+        }
+
+        $('#submit-button').click((e) => {
+            jsonNew = filter(json,$('#input-search').val());
+            console.log(jsonNew);
+            $('.d-flex').empty();
+            $(jsonNew.data).each((i, f) => {
+                renderCards(f);
+            });
+        })
+    </script>
+</body>
+</html>
